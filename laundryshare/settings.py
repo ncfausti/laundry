@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+AUTH_PROFILE_MODULE = "account.UserProfile"
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'laundry',
     'rest_framework',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,7 +55,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'laundryshare.urls'
 
 WSGI_APPLICATION = 'laundryshare.wsgi.application'
-
+TEMPLATE_DIRS = {'templates'}
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

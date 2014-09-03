@@ -10,6 +10,19 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
+    will_pickup = models.NullBooleanField(blank=True, null=True)
+    dropoff = models.NullBooleanField(blank=True, null=True)
+    street_address = models.CharField(max_length=300, blank=True)
+    city = models.CharField(max_length=150, blank=True)
+    state = models.CharField(max_length=2, blank=True)
+    zipcode = models.CharField(max_length=5, blank=True)
+    country = models.CharField(max_length=150, blank=True)
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 class AuthGroup(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -97,9 +110,12 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
-class Service(models.Model):
-    service_id = models.CharField(max_length=100)
+class SouthMigrationhistory(models.Model):
+    id = models.IntegerField(primary_key=True)
+    app_name = models.CharField(max_length=255)
+    migration = models.CharField(max_length=255)
+    applied = models.DateTimeField()
     class Meta:
         managed = False
-        db_table = 'service'
+        db_table = 'south_migrationhistory'
 
